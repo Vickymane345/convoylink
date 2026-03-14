@@ -14,10 +14,11 @@ const services = [
     href: '/convoy',
     color: 'orange',
     accent: '#f97316',
-    glow: 'rgba(249,115,22,0.15)',
-    gradient: 'from-orange-500/[0.08] via-orange-500/[0.04] to-transparent',
-    border: 'border-orange-500/[0.15] hover:border-orange-500/40',
+    glow: 'rgba(249,115,22,0.35)',
+    tint: 'rgba(249,115,22,0.18)',
+    border: 'border-orange-500/25 hover:border-orange-500/60',
     badge: 'Most Popular',
+    cardImage: '/images/bgImage7.jpg',
   },
   {
     icon: Car,
@@ -27,10 +28,11 @@ const services = [
     href: '/vehicles',
     color: 'blue',
     accent: '#3b82f6',
-    glow: 'rgba(59,130,246,0.12)',
-    gradient: 'from-blue-500/[0.08] via-blue-500/[0.04] to-transparent',
-    border: 'border-blue-500/[0.15] hover:border-blue-500/40',
+    glow: 'rgba(59,130,246,0.3)',
+    tint: 'rgba(59,130,246,0.15)',
+    border: 'border-blue-500/25 hover:border-blue-500/60',
     badge: null,
+    cardImage: '/images/bgImage8.jpg',
   },
   {
     icon: UserCheck,
@@ -40,10 +42,11 @@ const services = [
     href: '/drivers',
     color: 'green',
     accent: '#22c55e',
-    glow: 'rgba(34,197,94,0.12)',
-    gradient: 'from-green-500/[0.08] via-green-500/[0.04] to-transparent',
-    border: 'border-green-500/[0.15] hover:border-green-500/40',
+    glow: 'rgba(34,197,94,0.3)',
+    tint: 'rgba(34,197,94,0.15)',
+    border: 'border-green-500/25 hover:border-green-500/60',
     badge: null,
+    cardImage: '/images/bgImage9.jpg',
   },
 ]
 
@@ -53,14 +56,14 @@ const colorText: Record<string, string> = {
   green: 'text-green-400',
 }
 const colorBg: Record<string, string> = {
-  orange: 'bg-orange-500/10',
-  blue: 'bg-blue-500/10',
-  green: 'bg-green-500/10',
+  orange: 'bg-orange-500/15',
+  blue: 'bg-blue-500/15',
+  green: 'bg-green-500/15',
 }
 const colorBadge: Record<string, string> = {
-  orange: 'bg-orange-500/15 text-orange-300 border-orange-500/25',
-  blue: 'bg-blue-500/15 text-blue-300 border-blue-500/25',
-  green: 'bg-green-500/15 text-green-300 border-green-500/25',
+  orange: 'bg-orange-500/20 text-orange-300 border-orange-500/30',
+  blue: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+  green: 'bg-green-500/20 text-green-300 border-green-500/30',
 }
 
 const trustItems = [
@@ -73,7 +76,7 @@ const trustItems = [
 export function ServicesSection() {
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
-      {/* Background image */}
+      {/* Section background */}
       <div className="absolute inset-0">
         <Image
           src="/images/bgImage2.jpg"
@@ -87,7 +90,6 @@ export function ServicesSection() {
         <div className="absolute inset-0 bg-dot opacity-[0.12]" />
       </div>
 
-      {/* Subtle top separator */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -133,38 +135,60 @@ export function ServicesSection() {
                 )}
 
                 <Link href={service.href} className="group block h-full">
-                  <div
-                    className={`relative h-full rounded-2xl border bg-gradient-to-b ${service.gradient} ${service.border} p-6 sm:p-7 transition-all duration-300 card-lift overflow-hidden`}
-                    style={{ background: `linear-gradient(160deg, ${service.glow} 0%, rgba(24,24,27,0.6) 60%)` }}
-                  >
-                    {/* Hover beam */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{ background: `radial-gradient(ellipse 60% 40% at 50% 0%, ${service.glow} 0%, transparent 70%)` }}
-                    />
+                  <div className={`relative h-full rounded-2xl border ${service.border} overflow-hidden transition-all duration-300 card-lift`}>
 
-                    {/* Icon */}
-                    <div className={`relative inline-flex h-14 w-14 items-center justify-center rounded-2xl ${colorBg[service.color]} ${colorText[service.color]} mb-5 group-hover:scale-110 transition-transform duration-300`}
-                      style={{ boxShadow: `0 0 20px ${service.glow}` }}>
-                      <Icon className="h-7 w-7" />
+                    {/* ── Card background image ── */}
+                    <div className="absolute inset-0">
+                      <Image
+                        src={service.cardImage}
+                        alt={service.title}
+                        fill
+                        quality={75}
+                        className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                      {/* Base dark overlay */}
+                      <div className="absolute inset-0 bg-zinc-950/80" />
+                      {/* Color tint overlay */}
+                      <div className="absolute inset-0" style={{ background: `linear-gradient(160deg, ${service.tint} 0%, rgba(9,9,11,0.5) 60%)` }} />
+                      {/* Bottom gradient fade */}
+                      <div className="absolute bottom-0 inset-x-0 h-2/3 bg-gradient-to-t from-zinc-950/95 to-transparent" />
                     </div>
 
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-3">{service.title}</h3>
-                    <p className="text-sm text-zinc-400 leading-relaxed mb-6">{service.description}</p>
+                    {/* Hover beam */}
+                    <div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ background: `radial-gradient(ellipse 60% 40% at 50% 0%, ${service.glow.replace('0.35', '0.2').replace('0.3', '0.15')} 0%, transparent 70%)` }}
+                    />
 
-                    {/* Features */}
-                    <ul className="space-y-2.5 mb-8">
-                      {service.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2.5 text-sm text-zinc-300">
-                          <CheckCircle2 className={`h-4 w-4 shrink-0 ${colorText[service.color]}`} />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
+                    {/* Content */}
+                    <div className="relative z-10 p-6 sm:p-7 flex flex-col h-full">
+                      {/* Icon */}
+                      <div
+                        className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl ${colorBg[service.color]} ${colorText[service.color]} mb-5 group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm`}
+                        style={{ boxShadow: `0 0 20px ${service.glow}` }}
+                      >
+                        <Icon className="h-7 w-7" />
+                      </div>
 
-                    {/* CTA */}
-                    <div className={`flex items-center gap-2 text-sm font-semibold ${colorText[service.color]} group-hover:gap-3 transition-all duration-200`}>
-                      Browse {service.title}
-                      <ArrowRight className="h-4 w-4" />
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-3">{service.title}</h3>
+                      <p className="text-sm text-zinc-300 leading-relaxed mb-6">{service.description}</p>
+
+                      {/* Features */}
+                      <ul className="space-y-2.5 mb-8 flex-1">
+                        {service.features.map((f) => (
+                          <li key={f} className="flex items-center gap-2.5 text-sm text-zinc-200">
+                            <CheckCircle2 className={`h-4 w-4 shrink-0 ${colorText[service.color]}`} />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* CTA */}
+                      <div className={`flex items-center gap-2 text-sm font-semibold ${colorText[service.color]} group-hover:gap-3 transition-all duration-200`}>
+                        Browse {service.title}
+                        <ArrowRight className="h-4 w-4" />
+                      </div>
                     </div>
                   </div>
                 </Link>
