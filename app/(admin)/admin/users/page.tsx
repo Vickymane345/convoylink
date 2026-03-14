@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { createAdminClient } from '@/lib/supabase/server'
 import { formatDateTime } from '@/utils/helpers'
 import { Badge } from '@/components/ui/badge'
@@ -91,11 +92,12 @@ export default async function AdminUsersPage({
               <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Verified</th>
               <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden md:table-cell">Joined</th>
               <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Actions</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase"></th>
             </tr>
           </thead>
           <tbody>
             {users.length === 0 ? (
-              <tr><td colSpan={6} className="px-5 py-10 text-center text-zinc-500">No users found.</td></tr>
+              <tr><td colSpan={7} className="px-5 py-10 text-center text-zinc-500">No users found.</td></tr>
             ) : users.map((u, i) => (
               <tr key={u.id} className={i < users.length - 1 ? 'border-b border-zinc-800/50' : ''}>
                 <td className="px-5 py-3.5">
@@ -114,6 +116,11 @@ export default async function AdminUsersPage({
                 <td className="px-5 py-3.5 text-zinc-500 text-xs whitespace-nowrap hidden md:table-cell">{formatDateTime(u.created_at)}</td>
                 <td className="px-5 py-3.5">
                   <AdminUserActions userId={u.id} currentRole={u.role} isVerified={u.is_verified} />
+                </td>
+                <td className="px-5 py-3.5">
+                  <Link href={`/admin/users/${u.id}`} className="text-xs text-orange-400 hover:underline whitespace-nowrap">
+                    View →
+                  </Link>
                 </td>
               </tr>
             ))}
