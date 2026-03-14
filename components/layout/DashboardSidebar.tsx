@@ -11,7 +11,6 @@ import {
 import { cn, getInitials } from '@/utils/helpers'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAuthStore } from '@/store/useAuthStore'
-import { createClient } from '@/lib/supabase/client'
 import type { UserRole } from '@/types'
 
 type NavItem = { href: string; label: string; icon: React.ReactNode }
@@ -54,9 +53,8 @@ export function DashboardSidebar() {
   const navItems = navByRole[role]
 
   const handleSignOut = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
     clearUser()
+    await fetch('/api/auth/signout', { method: 'POST' })
     window.location.href = '/'
   }
 
