@@ -18,55 +18,170 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #18181b;
-}
-::-webkit-scrollbar-thumb {
-  background: #3f3f46;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #52525b;
-}
+/* ─── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #18181b; }
+::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #f97316; }
 
-/* Selection */
-::selection {
-  background: rgba(249, 115, 22, 0.3);
-  color: #fff;
-}
+/* ─── Text selection ────────────────────────────── */
+::selection { background: rgba(249, 115, 22, 0.3); color: #fff; }
 
-/* Glass morphism utility */
+/* ─── Glass morphism ────────────────────────────── */
 .glass {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(9, 9, 11, 0.80);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-/* Gradient text utility */
+/* ─── Gradient text ─────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fdba74 100%);
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fbbf24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glow effect */
-.glow-orange {
-  box-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
-}
+/* ─── Glow effects ──────────────────────────────── */
+.glow-orange { box-shadow: 0 0 40px rgba(249, 115, 22, 0.35); }
+.glow-orange-sm { box-shadow: 0 0 20px rgba(249, 115, 22, 0.2); }
 
-/* Animated background grid */
+/* ─── Background patterns ───────────────────────── */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.bg-dot {
+  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.hero-pattern {
+  background-color: #09090b;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(249,115,22,0.18), transparent),
+    radial-gradient(ellipse 50% 60% at 80% 50%, rgba(239,68,68,0.07), transparent),
+    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(59,130,246,0.06), transparent);
+}
+
+/* ─── Animations ────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(249,115,22,0.3); }
+  50% { box-shadow: 0 0 50px rgba(249,115,22,0.6); }
+}
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes beam {
+  0% { transform: translateX(-100%) rotate(-45deg); }
+  100% { transform: translateX(300%) rotate(-45deg); }
+}
+
+.float { animation: float 5s ease-in-out infinite; }
+.float-delayed { animation: float-delayed 7s ease-in-out 1s infinite; }
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(249,115,22,0.12) 50%, transparent 100%);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+.pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+/* ─── Responsive text ───────────────────────────── */
+.text-hero {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.text-section {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Gradient border card ──────────────────────── */
+.gradient-border-card {
+  position: relative;
+  border-radius: 20px;
+}
+.gradient-border-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(249,115,22,0.5) 0%, rgba(249,115,22,0.05) 50%, rgba(249,115,22,0.2) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─── Card hover lift ───────────────────────────── */
+.card-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(249,115,22,0.1);
+}
+
+/* ─── Animated underline link ───────────────────── */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #f97316, #fbbf24);
+  transition: width 0.3s ease;
+}
+.link-underline:hover::after { width: 100%; }
+
+/* ─── Section beam effect ───────────────────────── */
+.beam::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(249,115,22,0.04), transparent);
+  animation: beam 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ─── Mobile touch targets ──────────────────────── */
+@media (max-width: 768px) {
+  button, a[role="button"] { min-height: 44px; }
 }
