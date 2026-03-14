@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Shield, CheckCircle, Zap, Lock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -13,16 +14,29 @@ const perks = [
 
 export function CtaSection() {
   return (
-    <section className="relative py-24 sm:py-32 bg-zinc-950 overflow-hidden">
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-dot opacity-[0.15]" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(249,115,22,0.1) 0%, transparent 65%)',
-        }}
-      />
+    <section className="relative py-24 sm:py-32 overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/bgImage6.jpg"
+          alt=""
+          fill
+          quality={75}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-zinc-950/85" />
+        <div className="absolute inset-0 bg-dot opacity-[0.12]" />
+        {/* Orange atmosphere */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(249,115,22,0.12) 0%, transparent 65%)',
+          }}
+        />
+      </div>
+
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -31,29 +45,21 @@ export function CtaSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-3xl overflow-hidden"
+          className="relative rounded-3xl overflow-hidden border border-orange-500/20 bg-zinc-950/60 backdrop-blur-sm"
         >
-          {/* Card border glow */}
-          <div className="absolute inset-0 rounded-3xl" style={{
-            background: 'linear-gradient(135deg, rgba(249,115,22,0.25) 0%, rgba(249,115,22,0.05) 40%, rgba(249,115,22,0.12) 100%)',
-            padding: '1px',
-          }}>
-            <div className="absolute inset-0 rounded-3xl bg-zinc-950" />
-          </div>
-
-          {/* Inner glow top */}
+          {/* Inner top glow */}
           <div
             className="absolute top-0 inset-x-0 h-px"
             style={{ background: 'linear-gradient(90deg, transparent, rgba(249,115,22,0.5), transparent)' }}
           />
 
-          {/* Large ambient glow */}
+          {/* Ambient glow */}
           <div
             className="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[80px] pointer-events-none"
-            style={{ background: 'rgba(249,115,22,0.12)' }}
+            style={{ background: 'rgba(249,115,22,0.1)' }}
           />
 
-          {/* Animated shimmer */}
+          {/* Shimmer */}
           <div className="shimmer absolute inset-0 rounded-3xl opacity-60" />
 
           <div className="relative z-10 px-6 sm:px-12 lg:px-16 py-14 sm:py-20 flex flex-col items-center text-center">

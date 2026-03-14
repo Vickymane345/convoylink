@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { Shield, Twitter, Linkedin, Instagram, Facebook, Mail, Phone, MapPin } from 'lucide-react'
+import { FaHeart } from 'react-icons/fa'
+import { GiNigeria } from 'react-icons/gi'
 
 const services = [
   { label: 'Convoy Escort', href: '/convoy' },
@@ -143,7 +145,9 @@ export function Footer() {
           <p className="text-xs text-zinc-500">© 2025 ConvoyLink. All rights reserved.</p>
 
           <div className="flex items-center gap-4">
-            <span className="text-xs text-zinc-600">Made with ❤️ in Nigeria 🇳🇬</span>
+            <span className="text-xs text-zinc-600 flex items-center gap-1">
+              Made with <FaHeart className="text-red-500 h-3 w-3" /> in Nigeria <GiNigeria className="text-green-500 h-3.5 w-3.5" />
+            </span>
             <span className="h-3.5 w-px bg-zinc-700" />
             <div className="flex items-center gap-1.5">
               <span className="flex h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />

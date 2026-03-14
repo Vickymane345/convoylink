@@ -21,6 +21,7 @@ import {
 } from '@/services/bookingService'
 import { formatCurrency, formatDateTime } from '@/utils/helpers'
 import Link from 'next/link'
+import { FaCreditCard } from 'react-icons/fa'
 
 const schema = z.object({
   pickup_location: z.string().min(5, 'Enter a full pickup address'),
@@ -518,7 +519,7 @@ export function BookingWizard({ serviceType, serviceId, serviceData, providerId,
                   </div>
 
                   <div className="mt-4 rounded-lg bg-zinc-800/60 p-3 text-xs text-zinc-400">
-                    💳 Payment will be held in escrow until your trip is complete.
+                    <FaCreditCard className="inline mr-1.5 text-orange-400" /> Payment will be held in escrow until your trip is complete.
                     You&apos;ll be redirected to Stripe to complete payment after booking.
                   </div>
                 </CardContent>

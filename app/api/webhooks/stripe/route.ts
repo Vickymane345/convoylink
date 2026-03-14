@@ -69,7 +69,7 @@ export async function POST(request: Request) {
           })
         }
 
-        console.log(`✅ Payment held for booking ${bookingId}`)
+        console.log(`[OK] Payment held for booking ${bookingId}`)
         break
       }
 
@@ -86,7 +86,7 @@ export async function POST(request: Request) {
           .update({ status: 'failed' })
           .eq('booking_id', bookingId)
 
-        console.log(`❌ Payment failed for booking ${bookingId}`)
+        console.log(`[FAIL] Payment failed for booking ${bookingId}`)
         break
       }
 
@@ -105,7 +105,7 @@ export async function POST(request: Request) {
           .update({ status: 'refunded' })
           .eq('stripe_payment_intent_id', paymentIntentId)
 
-        console.log(`🔄 Charge refunded for payment intent ${paymentIntentId}`)
+        console.log(`[REFUND] Charge refunded for payment intent ${paymentIntentId}`)
         break
       }
 

@@ -364,7 +364,9 @@ export default async function AdminUserDetailPage({
       {reviews.length > 0 && (
         <section>
           <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <Star className="h-4 w-4" /> Reviews Given ({reviews.length}{avgRating ? ` · avg ${avgRating}★` : ''})
+            <Star className="h-4 w-4" /> Reviews Given ({reviews.length}{avgRating ? (
+              <> &middot; avg {avgRating} <Star className="inline h-3 w-3 fill-yellow-400 text-yellow-400" /></>
+            ) : ''})
           </h2>
           <div className="space-y-3">
             {reviews.map(r => (

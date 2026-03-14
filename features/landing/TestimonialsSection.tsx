@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
+import Image from 'next/image'
 
 const testimonials = [
   {
@@ -44,9 +45,21 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section className="relative py-24 sm:py-32 bg-zinc-950 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-dot opacity-[0.15]" />
+    <section className="relative py-24 sm:py-32 overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/bgImage5.jpg"
+          alt=""
+          fill
+          quality={70}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-zinc-950/88" />
+        <div className="absolute inset-0 bg-dot opacity-[0.12]" />
+      </div>
+
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -79,7 +92,7 @@ export function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.55, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className={`group relative rounded-2xl border ${t.border} bg-zinc-900/50 p-6 sm:p-7 overflow-hidden transition-all duration-300 hover:border-opacity-60`}
+              className={`group relative rounded-2xl border ${t.border} p-6 sm:p-7 overflow-hidden transition-all duration-300`}
               style={{ background: `linear-gradient(145deg, ${t.glow} 0%, rgba(24,24,27,0.7) 50%)` }}
             >
               {/* Hover top beam */}
@@ -107,7 +120,6 @@ export function TestimonialsSection() {
 
               {/* Author */}
               <div className="flex items-center gap-3 pt-5 border-t border-zinc-800/70">
-                {/* Avatar */}
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-bold ${t.badge}`}>
                   {t.initials}
                 </div>

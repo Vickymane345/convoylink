@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Shield, Car, UserCheck, ArrowRight, MapPin, Lock, Star, CheckCircle2 } from 'lucide-react'
 
 const services = [
@@ -71,11 +72,25 @@ const trustItems = [
 
 export function ServicesSection() {
   return (
-    <section className="relative py-24 sm:py-32 bg-zinc-950 overflow-hidden">
-      {/* Subtle top separator glow */}
+    <section className="relative py-24 sm:py-32 overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/bgImage2.jpg"
+          alt=""
+          fill
+          quality={70}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-zinc-950/88" />
+        <div className="absolute inset-0 bg-dot opacity-[0.12]" />
+      </div>
+
+      {/* Subtle top separator */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}

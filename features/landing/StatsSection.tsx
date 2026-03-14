@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useSpring, useInView } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { TrendingUp, MapPin, ThumbsUp, Users } from 'lucide-react'
+import Image from 'next/image'
 
 const stats = [
   { value: 2400, suffix: '+', label: 'Trips Completed', icon: TrendingUp, color: 'text-orange-400', glow: 'rgba(249,115,22,0.15)' },
@@ -33,9 +34,20 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
 export function StatsSection() {
   return (
     <section className="relative py-20 sm:py-24 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-zinc-900/40" />
-      <div className="absolute inset-0 bg-dot opacity-30" />
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/bgImage3.jpg"
+          alt=""
+          fill
+          quality={70}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-zinc-900/85" />
+        <div className="absolute inset-0 bg-dot opacity-25" />
+      </div>
+
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-zinc-700/40 to-transparent" />
       <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-zinc-700/40 to-transparent" />
 
@@ -48,7 +60,7 @@ export function StatsSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <p className="text-sm text-zinc-500 max-w-sm mx-auto">
+          <p className="text-sm text-zinc-400 max-w-sm mx-auto">
             Trusted by thousands of Nigerians — from individuals to major corporations.
           </p>
         </motion.div>

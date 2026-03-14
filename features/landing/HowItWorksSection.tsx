@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Search, CreditCard, MapPin, CheckCircle, ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 
 const steps = [
   {
@@ -52,9 +53,21 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <section className="relative py-24 sm:py-32 bg-zinc-950 overflow-hidden">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-dot opacity-[0.18]" />
+    <section className="relative py-24 sm:py-32 overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/bgImage4.jpg"
+          alt=""
+          fill
+          quality={70}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-zinc-950/90" />
+        <div className="absolute inset-0 bg-dot opacity-[0.15]" />
+      </div>
+
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-orange-500/20 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

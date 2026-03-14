@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CalendarCheck, Shield, Car, Star, ArrowRight } from 'lucide-react'
+import { PiHandWaving } from 'react-icons/pi'
 import Link from 'next/link'
 import { formatCurrency, formatDate } from '@/utils/helpers'
 
@@ -38,8 +39,9 @@ export default async function CustomerDashboard() {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-white">
-          Welcome back, {profile?.full_name.split(' ')[0]} 👋
-        </h1>
+          Welcome back, {profile?.full_name.split(' ')[0]}{' '}
+          <PiHandWaving className="inline h-6 w-6 text-yellow-400 align-middle" />
+</h1>
         <p className="text-zinc-400 mt-1">Here&apos;s what&apos;s happening with your bookings.</p>
       </div>
 

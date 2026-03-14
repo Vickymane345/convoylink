@@ -99,7 +99,7 @@ export async function POST(request: Request) {
       data: { booking_id },
     })
 
-    console.log(`✅ Escrow released for booking ${booking_id} — ₦${payment.provider_amount}`)
+    console.log(`[OK] Escrow released for booking ${booking_id} — N${payment.provider_amount}`)
 
     return NextResponse.json({
       success: true,
