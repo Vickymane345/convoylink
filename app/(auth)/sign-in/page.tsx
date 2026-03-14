@@ -40,8 +40,7 @@ function SignInForm() {
       setAuthError(error.message)
       return
     }
-    router.push(redirectTo)
-    router.refresh()
+    window.location.href = redirectTo
   }
 
   return (
