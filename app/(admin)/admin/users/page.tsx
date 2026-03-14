@@ -51,17 +51,17 @@ export default async function AdminUsersPage({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+      <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white">Users</h1>
           <p className="text-zinc-400 mt-1">{users.length} users</p>
         </div>
-        <form className="flex gap-2 flex-wrap">
+        <form className="flex gap-2 flex-wrap w-full sm:w-auto">
           <input
             name="q"
             defaultValue={q}
             placeholder="Search name or email…"
-            className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-sm text-zinc-200 placeholder-zinc-600 outline-none focus:border-orange-500/50 w-56"
+            className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-sm text-zinc-200 placeholder-zinc-600 outline-none focus:border-orange-500/50 flex-1 sm:w-56 min-w-0"
           />
           <select
             name="role"
@@ -81,13 +81,16 @@ export default async function AdminUsersPage({
         </form>
       </div>
 
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-x-auto">
+        <table className="w-full text-sm min-w-[600px]">
           <thead>
             <tr className="border-b border-zinc-800">
-              {['Name', 'Email', 'Role', 'Verified', 'Joined', 'Actions'].map(h => (
-                <th key={h} className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">{h}</th>
-              ))}
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Name</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden sm:table-cell">Email</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Role</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Verified</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden md:table-cell">Joined</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -99,7 +102,7 @@ export default async function AdminUsersPage({
                   <p className="text-zinc-200 font-medium">{u.full_name || '—'}</p>
                   {u.phone && <p className="text-xs text-zinc-600">{u.phone}</p>}
                 </td>
-                <td className="px-5 py-3.5 text-zinc-400 text-xs">{u.email}</td>
+                <td className="px-5 py-3.5 text-zinc-400 text-xs hidden sm:table-cell">{u.email}</td>
                 <td className="px-5 py-3.5">
                   <Badge variant={roleVariant[u.role] ?? 'secondary'} className="capitalize">{u.role}</Badge>
                 </td>
@@ -108,7 +111,7 @@ export default async function AdminUsersPage({
                     {u.is_verified ? 'Verified' : 'Unverified'}
                   </Badge>
                 </td>
-                <td className="px-5 py-3.5 text-zinc-500 text-xs whitespace-nowrap">{formatDateTime(u.created_at)}</td>
+                <td className="px-5 py-3.5 text-zinc-500 text-xs whitespace-nowrap hidden md:table-cell">{formatDateTime(u.created_at)}</td>
                 <td className="px-5 py-3.5">
                   <AdminUserActions userId={u.id} currentRole={u.role} isVerified={u.is_verified} />
                 </td>

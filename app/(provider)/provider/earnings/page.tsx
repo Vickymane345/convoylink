@@ -118,13 +118,16 @@ export default async function EarningsPage() {
             No payments yet. Start accepting bookings to see earnings here.
           </div>
         ) : (
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
-            <table className="w-full text-sm">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-x-auto">
+            <table className="w-full text-sm min-w-[560px]">
               <thead>
                 <tr className="border-b border-zinc-800">
-                  {['Date', 'Service', 'Gross', 'Platform Fee', 'Your Payout', 'Status'].map(h => (
-                    <th key={h} className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">{h}</th>
-                  ))}
+                  <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden sm:table-cell">Date</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Service</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden md:table-cell">Gross</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden md:table-cell">Platform Fee</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Your Payout</th>
+                  <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,7 +136,7 @@ export default async function EarningsPage() {
                   const config = statusConfig[payment.status] ?? { label: payment.status, variant: 'secondary' as const }
                   return (
                     <tr key={payment.id} className={!isLast ? 'border-b border-zinc-800/50' : ''}>
-                      <td className="px-5 py-4 text-zinc-400 whitespace-nowrap">
+                      <td className="px-5 py-4 text-zinc-400 whitespace-nowrap hidden sm:table-cell">
                         {payment.paid_at ? formatDate(payment.paid_at) : '—'}
                       </td>
                       <td className="px-5 py-4">
@@ -144,8 +147,8 @@ export default async function EarningsPage() {
                           </p>
                         )}
                       </td>
-                      <td className="px-5 py-4 text-zinc-300">{formatCurrency(payment.amount)}</td>
-                      <td className="px-5 py-4 text-zinc-500">−{formatCurrency(payment.platform_fee)}</td>
+                      <td className="px-5 py-4 text-zinc-300 hidden md:table-cell">{formatCurrency(payment.amount)}</td>
+                      <td className="px-5 py-4 text-zinc-500 hidden md:table-cell">−{formatCurrency(payment.platform_fee)}</td>
                       <td className="px-5 py-4 font-medium text-white">{formatCurrency(payment.provider_amount)}</td>
                       <td className="px-5 py-4">
                         <Badge variant={config.variant}>{config.label}</Badge>

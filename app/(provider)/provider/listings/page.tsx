@@ -20,12 +20,12 @@ export default async function ProviderListingsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-bold text-white">My Listings</h1>
           <p className="text-zinc-400 mt-1">{(services?.length ?? 0) + (vehicles?.length ?? 0)} total listings</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Link href="/provider/listings/new-convoy">
             <Button size="sm" variant="secondary"><Plus className="h-4 w-4 mr-1" />Convoy Service</Button>
           </Link>

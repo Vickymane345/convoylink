@@ -72,7 +72,7 @@ export default async function DriverDashboard() {
             ))}
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 flex-wrap">
             <Link href="/driver/tracking">
               <Button className="gap-2">
                 <Navigation className="h-4 w-4" />

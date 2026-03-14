@@ -55,13 +55,16 @@ export default async function ProviderBookingsPage() {
           <p>No bookings yet. Create a listing to start receiving bookings.</p>
         </div>
       ) : (
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
-          <table className="w-full text-sm">
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-x-auto">
+          <table className="w-full text-sm min-w-[560px]">
             <thead>
               <tr className="border-b border-zinc-800">
-                {['Customer', 'Service', 'Date', 'Amount', 'Status', 'Actions'].map(h => (
-                  <th key={h} className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">{h}</th>
-                ))}
+                <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Customer</th>
+                <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Service</th>
+                <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden sm:table-cell">Date</th>
+                <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden sm:table-cell">Amount</th>
+                <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Status</th>
+                <th className="text-left px-5 py-3.5 text-xs font-medium text-zinc-500 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -77,12 +80,12 @@ export default async function ProviderBookingsPage() {
                     </td>
                     <td className="px-5 py-4">
                       <p className="text-zinc-300 capitalize">{booking.service_type}</p>
-                      <p className="text-xs text-zinc-500 truncate max-w-[150px]">{booking.pickup_location}</p>
+                      <p className="text-xs text-zinc-500 truncate max-w-[120px]">{booking.pickup_location}</p>
                     </td>
-                    <td className="px-5 py-4 text-zinc-400">
+                    <td className="px-5 py-4 text-zinc-400 hidden sm:table-cell">
                       {formatDateTime(booking.scheduled_at)}
                     </td>
-                    <td className="px-5 py-4">
+                    <td className="px-5 py-4 hidden sm:table-cell">
                       <p className="text-white font-medium">{formatCurrency(booking.provider_amount)}</p>
                       <p className="text-xs text-zinc-600">After platform fee</p>
                     </td>

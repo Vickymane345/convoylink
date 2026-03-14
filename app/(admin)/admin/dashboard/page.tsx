@@ -143,13 +143,15 @@ export default async function AdminDashboardPage() {
         {/* Recent bookings */}
         <div className="lg:col-span-2">
           <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-3">Recent Bookings</h2>
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
-            <table className="w-full text-sm">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-x-auto">
+            <table className="w-full text-sm min-w-[480px]">
               <thead>
                 <tr className="border-b border-zinc-800">
-                  {['Customer', 'Service', 'Amount', 'Status', 'Date'].map(h => (
-                    <th key={h} className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase">{h}</th>
-                  ))}
+                  <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase">Customer</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase hidden sm:table-cell">Service</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase hidden sm:table-cell">Amount</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase">Status</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase hidden md:table-cell">Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -158,14 +160,14 @@ export default async function AdminDashboardPage() {
                 ) : recentBookings.map((b, i) => (
                   <tr key={b.id} className={i < recentBookings.length - 1 ? 'border-b border-zinc-800/50' : ''}>
                     <td className="px-4 py-3 text-zinc-300">{b.customer?.full_name ?? '—'}</td>
-                    <td className="px-4 py-3 text-zinc-400 capitalize">{b.service_type}</td>
-                    <td className="px-4 py-3 text-zinc-300">{formatCurrency(b.total_amount)}</td>
+                    <td className="px-4 py-3 text-zinc-400 capitalize hidden sm:table-cell">{b.service_type}</td>
+                    <td className="px-4 py-3 text-zinc-300 hidden sm:table-cell">{formatCurrency(b.total_amount)}</td>
                     <td className="px-4 py-3">
                       <Badge variant={bookingStatusConfig[b.status] ?? 'secondary'} className="capitalize text-[10px]">
                         {b.status.replace('_', ' ')}
                       </Badge>
                     </td>
-                    <td className="px-4 py-3 text-zinc-500 text-xs whitespace-nowrap">{formatDateTime(b.created_at)}</td>
+                    <td className="px-4 py-3 text-zinc-500 text-xs whitespace-nowrap hidden md:table-cell">{formatDateTime(b.created_at)}</td>
                   </tr>
                 ))}
               </tbody>

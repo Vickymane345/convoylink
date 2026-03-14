@@ -75,13 +75,18 @@ export default async function AdminDriversPage({
         ))}
       </div>
 
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-x-auto">
+        <table className="w-full text-sm min-w-[700px]">
           <thead>
             <tr className="border-b border-zinc-800">
-              {['Driver', 'License', 'Experience', 'Trips', 'Rating', 'Status', 'Applied', 'Actions'].map(h => (
-                <th key={h} className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase">{h}</th>
-              ))}
+              <th className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase">Driver</th>
+              <th className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden sm:table-cell">License</th>
+              <th className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden md:table-cell">Experience</th>
+              <th className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden md:table-cell">Trips</th>
+              <th className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden sm:table-cell">Rating</th>
+              <th className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase">Status</th>
+              <th className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase hidden lg:table-cell">Applied</th>
+              <th className="text-left px-4 py-3.5 text-xs font-medium text-zinc-500 uppercase">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -93,16 +98,16 @@ export default async function AdminDriversPage({
                   <p className="text-zinc-200 font-medium">{d.user?.full_name ?? '—'}</p>
                   <p className="text-xs text-zinc-600">{d.user?.email ?? ''}</p>
                 </td>
-                <td className="px-4 py-3.5 text-zinc-400 font-mono text-xs">{d.license_number}</td>
-                <td className="px-4 py-3.5 text-zinc-400">{d.years_experience ? `${d.years_experience} yrs` : '—'}</td>
-                <td className="px-4 py-3.5 text-zinc-400">{d.total_trips}</td>
-                <td className="px-4 py-3.5 text-zinc-400">{d.avg_rating ? `★ ${d.avg_rating.toFixed(1)}` : '—'}</td>
+                <td className="px-4 py-3.5 text-zinc-400 font-mono text-xs hidden sm:table-cell">{d.license_number}</td>
+                <td className="px-4 py-3.5 text-zinc-400 hidden md:table-cell">{d.years_experience ? `${d.years_experience} yrs` : '—'}</td>
+                <td className="px-4 py-3.5 text-zinc-400 hidden md:table-cell">{d.total_trips}</td>
+                <td className="px-4 py-3.5 text-zinc-400 hidden sm:table-cell">{d.avg_rating ? `★ ${d.avg_rating.toFixed(1)}` : '—'}</td>
                 <td className="px-4 py-3.5">
                   <Badge variant={statusVariant[d.verification_status] ?? 'secondary'} className="capitalize">
                     {d.verification_status}
                   </Badge>
                 </td>
-                <td className="px-4 py-3.5 text-zinc-500 text-xs whitespace-nowrap">{formatDateTime(d.created_at)}</td>
+                <td className="px-4 py-3.5 text-zinc-500 text-xs whitespace-nowrap hidden lg:table-cell">{formatDateTime(d.created_at)}</td>
                 <td className="px-4 py-3.5">
                   <DriverVerificationActions driverId={d.id} currentStatus={d.verification_status} />
                 </td>
