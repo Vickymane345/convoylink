@@ -12,6 +12,8 @@ export default async function BookPage({
   const { service, id } = await searchParams
   const supabase = await createClient()
 
+  const { data: { user: authUser } } = await supabase.auth.getUser()
+
   let serviceData = null
   let providerData = null
 
@@ -49,6 +51,7 @@ export default async function BookPage({
           serviceId={id ?? ''}
           serviceData={serviceData}
           providerId={(providerData as { id: string } | null)?.id ?? ''}
+          userId={authUser?.id ?? null}
         />
       </Suspense>
     </div>

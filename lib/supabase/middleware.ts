@@ -47,7 +47,9 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (user && (pathname === '/sign-in' || pathname === '/sign-up')) {
-    url.pathname = '/dashboard'
+    const redirectTo = request.nextUrl.searchParams.get('redirectTo')
+    url.pathname = redirectTo ?? '/dashboard'
+    url.search = ''
     return NextResponse.redirect(url)
   }
 

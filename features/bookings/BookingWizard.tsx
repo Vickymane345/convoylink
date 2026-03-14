@@ -41,6 +41,7 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   serviceData: any
   providerId: string
+  userId: string | null
 }
 
 const serviceIcons = {
@@ -55,7 +56,7 @@ const serviceColors = {
   driver: 'green',
 }
 
-export function BookingWizard({ serviceType, serviceId, serviceData, providerId }: Props) {
+export function BookingWizard({ serviceType, serviceId, serviceData, providerId, userId }: Props) {
   const [step, setStep] = useState(0)
   const [breakdown, setBreakdown] = useState<BookingPriceBreakdown | null>(null)
   const [submitting, setSubmitting] = useState(false)
@@ -63,6 +64,8 @@ export function BookingWizard({ serviceType, serviceId, serviceData, providerId 
   const [error, setError] = useState<string | null>(null)
   const { user } = useAuthStore()
   const router = useRouter()
+  // Use server-provided userId (reliable) with Zustand user as fallback for profile data
+  const effectiveUserId = userId ?? user?.id ?? null
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>({
@@ -103,7 +106,7 @@ export function BookingWizard({ serviceType, serviceId, serviceData, providerId 
   })
 
   const onConfirm = async (data: FormData): Promise<void> => {
-    if (!user) { router.push('/sign-in?redirectTo=/book'); return }
+    if (!effectiveUserId) { router.push(`/sign-in?redirectTo=${encodeURIComponent(`/book?service=${serviceType}&id=${serviceId}`)}`); return }
     setSubmitting(true)
     setError(null)
 
@@ -115,7 +118,7 @@ export function BookingWizard({ serviceType, serviceId, serviceData, providerId 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          customer_id: user.id,
+          customer_id: effectiveUserId,
           service_type: serviceType,
           service_id: serviceId,
           pickup_location: data.pickup_location,
@@ -189,14 +192,14 @@ export function BookingWizard({ serviceType, serviceId, serviceData, providerId 
   }
 
   // Auth guard
-  if (!user && step >= 1) {
+  if (!effectiveUserId && step >= 1) {
     return (
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="w-full max-w-sm text-center rounded-2xl border border-zinc-800 bg-zinc-900/60 p-8">
           <AlertCircle className="h-10 w-10 text-orange-400 mx-auto mb-4" />
           <h2 className="text-lg font-bold text-white mb-2">Sign in to continue</h2>
           <p className="text-sm text-zinc-400 mb-6">You need an account to book a service.</p>
-          <Link href={`/sign-in?redirectTo=/book?service=${serviceType}&id=${serviceId}`}>
+          <Link href={`/sign-in?redirectTo=${encodeURIComponent(`/book?service=${serviceType}&id=${serviceId}`)}`}>
             <Button className="w-full">Sign In</Button>
           </Link>
           <Link href={`/sign-up`}>
@@ -309,7 +312,7 @@ export function BookingWizard({ serviceType, serviceId, serviceData, providerId 
               className="w-full"
               size="lg"
               onClick={() => {
-                if (!user) { router.push(`/sign-in?redirectTo=/book?service=${serviceType}&id=${serviceId}`); return }
+                if (!effectiveUserId) { router.push(`/sign-in?redirectTo=${encodeURIComponent(`/book?service=${serviceType}&id=${serviceId}`)}`); return }
                 setStep(1)
               }}
               disabled={!serviceId}
