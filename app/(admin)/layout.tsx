@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { DashboardShell } from '@/components/layout/DashboardShell'
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -8,7 +8,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   if (!user) redirect('/sign-in')
 
-  const { data: profile } = await supabase
+  // Use service role to bypass RLS when reading the profile role
+  const admin = await createAdminClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: profile } = await (admin as any)
     .from('user_profiles')
     .select('role')
     .eq('id', user.id)
