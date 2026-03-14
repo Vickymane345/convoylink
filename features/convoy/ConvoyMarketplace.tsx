@@ -117,7 +117,9 @@ export function ConvoyMarketplace({ initialData }: Props) {
         </p>
 
         {/* Grid */}
-        {filtered.length === 0 ? (
+        {initialData.length === 0 ? (
+          <ConvoyEmptyState />
+        ) : filtered.length === 0 ? (
           <div className="py-20 text-center text-zinc-500">
             <SlidersHorizontal className="h-10 w-10 mx-auto mb-3 opacity-40" />
             <p>No services match your filters.</p>
@@ -134,6 +136,94 @@ export function ConvoyMarketplace({ initialData }: Props) {
         )}
       </div>
     </div>
+  )
+}
+
+function ConvoyEmptyState() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col items-center justify-center py-20 px-4 text-center"
+    >
+      <div className="mb-8 relative">
+        <svg width="260" height="120" viewBox="0 0 260 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Road */}
+          <rect x="0" y="95" width="260" height="25" rx="4" fill="#18181b"/>
+          <rect x="100" y="104" width="16" height="4" rx="2" fill="#3f3f46"/>
+          <rect x="126" y="104" width="16" height="4" rx="2" fill="#3f3f46"/>
+
+          {/* Lead armored vehicle */}
+          <rect x="10" y="62" width="80" height="36" rx="6" fill="#27272a" stroke="#f97316" strokeWidth="1.5" strokeOpacity="0.5"/>
+          <path d="M22 62 L30 46 L72 46 L82 62 Z" fill="#3f3f46" stroke="#f97316" strokeWidth="1" strokeOpacity="0.3"/>
+          <rect x="32" y="50" width="18" height="12" rx="2" fill="#7c2d12" fillOpacity="0.6" stroke="#f97316" strokeWidth="0.8" strokeOpacity="0.4"/>
+          <rect x="54" y="50" width="20" height="12" rx="2" fill="#7c2d12" fillOpacity="0.6" stroke="#f97316" strokeWidth="0.8" strokeOpacity="0.4"/>
+          <rect x="80" y="72" width="12" height="6" rx="3" fill="#fbbf24" fillOpacity="0.8"/>
+          <circle cx="28" cy="98" r="10" fill="#18181b" stroke="#f97316" strokeWidth="1.5" strokeOpacity="0.5"/>
+          <circle cx="28" cy="98" r="4" fill="#27272a"/>
+          <circle cx="72" cy="98" r="10" fill="#18181b" stroke="#f97316" strokeWidth="1.5" strokeOpacity="0.5"/>
+          <circle cx="72" cy="98" r="4" fill="#27272a"/>
+
+          {/* Middle sedan */}
+          <rect x="100" y="68" width="70" height="30" rx="5" fill="#27272a" stroke="#f97316" strokeWidth="1" strokeOpacity="0.35"/>
+          <path d="M112 68 L118 54 L158 54 L165 68 Z" fill="#3f3f46" stroke="#f97316" strokeWidth="1" strokeOpacity="0.2"/>
+          <rect x="119" y="57" width="16" height="10" rx="2" fill="#7c2d12" fillOpacity="0.5"/>
+          <rect x="140" y="57" width="16" height="10" rx="2" fill="#7c2d12" fillOpacity="0.5"/>
+          <circle cx="116" cy="98" r="9" fill="#18181b" stroke="#f97316" strokeWidth="1.2" strokeOpacity="0.4"/>
+          <circle cx="116" cy="98" r="4" fill="#27272a"/>
+          <circle cx="154" cy="98" r="9" fill="#18181b" stroke="#f97316" strokeWidth="1.2" strokeOpacity="0.4"/>
+          <circle cx="154" cy="98" r="4" fill="#27272a"/>
+
+          {/* Rear escort */}
+          <rect x="180" y="65" width="72" height="32" rx="6" fill="#27272a" stroke="#f97316" strokeWidth="1" strokeOpacity="0.3"/>
+          <path d="M190 65 L198 50 L234 50 L244 65 Z" fill="#3f3f46" stroke="#f97316" strokeWidth="1" strokeOpacity="0.2"/>
+          <rect x="199" y="54" width="16" height="10" rx="2" fill="#7c2d12" fillOpacity="0.5"/>
+          <rect x="219" y="54" width="16" height="10" rx="2" fill="#7c2d12" fillOpacity="0.5"/>
+          <rect x="179" y="72" width="10" height="5" rx="2" fill="#ef4444" fillOpacity="0.7"/>
+          <circle cx="196" cy="97" r="9" fill="#18181b" stroke="#f97316" strokeWidth="1.2" strokeOpacity="0.4"/>
+          <circle cx="196" cy="97" r="4" fill="#27272a"/>
+          <circle cx="234" cy="97" r="9" fill="#18181b" stroke="#f97316" strokeWidth="1.2" strokeOpacity="0.4"/>
+          <circle cx="234" cy="97" r="4" fill="#27272a"/>
+
+          {/* Motion lines */}
+          <line x1="0" y1="72" x2="8" y2="72" stroke="#f97316" strokeWidth="1.5" strokeOpacity="0.4" strokeLinecap="round"/>
+          <line x1="0" y1="78" x2="5" y2="78" stroke="#f97316" strokeWidth="1" strokeOpacity="0.25" strokeLinecap="round"/>
+          <line x1="0" y1="84" x2="8" y2="84" stroke="#f97316" strokeWidth="1.5" strokeOpacity="0.4" strokeLinecap="round"/>
+
+          {/* Shield icon above */}
+          <path d="M122 18 L130 10 L138 18 L138 28 Q130 34 130 34 Q122 28 122 28 Z" fill="#f97316" fillOpacity="0.2" stroke="#f97316" strokeWidth="1.5" strokeOpacity="0.6"/>
+          <path d="M126 22 L129 25 L134 19" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.8"/>
+        </svg>
+
+        <motion.div
+          animate={{ y: [0, -5, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute -top-3 right-0 bg-orange-500/20 border border-orange-500/30 rounded-xl px-3 py-1.5"
+        >
+          <span className="text-xs font-medium text-orange-300">Coming soon</span>
+        </motion.div>
+      </div>
+
+      <h3 className="text-xl font-bold text-white mb-2">No convoy services listed yet</h3>
+      <p className="text-zinc-400 text-sm max-w-sm leading-relaxed mb-8">
+        Verified convoy escort providers will appear here. Are you a licensed security company or convoy operator in Nigeria? List your services and connect with clients today.
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Link href="/sign-up">
+          <Button size="lg" className="gap-2">
+            <Shield className="h-4 w-4" />
+            List Your Convoy Service
+          </Button>
+        </Link>
+        <a href="mailto:hello@convoylink.ng">
+          <Button size="lg" variant="outline" className="gap-2">
+            Contact Us
+          </Button>
+        </a>
+      </div>
+    </motion.div>
   )
 }
 
