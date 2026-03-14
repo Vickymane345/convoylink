@@ -22,10 +22,15 @@ export const metadata: Metadata = {
     'Book convoy escort services, hire professional drivers, rent vehicles, and track convoys in real-time across Nigeria.',
   keywords: ['convoy', 'escort', 'driver hire', 'vehicle rental', 'Nigeria', 'logistics', 'security'],
   authors: [{ name: 'ConvoyLink' }],
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_NG',
     siteName: 'ConvoyLink',
+    images: [{ url: '/logo.svg', width: 200, height: 48, alt: 'ConvoyLink' }],
   },
 }
 

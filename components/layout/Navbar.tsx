@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { Shield, Menu, X, ChevronDown, Bell, User, LogOut, LayoutDashboard } from 'lucide-react'
+import { Menu, X, ChevronDown, Bell, User, LogOut, LayoutDashboard } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAuthStore } from '@/store/useAuthStore'
 import { getInitials } from '@/utils/helpers'
+import { Logo } from '@/components/brand/Logo'
 
 const navLinks = [
   { href: '/convoy', label: 'Convoy Services' },
@@ -64,13 +65,12 @@ export function Navbar() {
           <div className="flex h-16 items-center justify-between gap-4">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500 shadow-lg shadow-orange-500/30 group-hover:scale-105 group-hover:shadow-orange-500/50 transition-all duration-200">
-                <Shield className="h-4 w-4 text-white" />
-              </div>
-              <span className="font-bold text-white text-lg">
-                Convoy<span className="text-orange-500">Link</span>
-              </span>
+            <Link href="/" className="shrink-0 group">
+              <Logo
+                iconSize={32}
+                textSize="text-lg"
+                className="group-hover:opacity-90 transition-opacity duration-200"
+              />
             </Link>
 
             {/* Desktop Nav */}

@@ -12,6 +12,7 @@ import { cn, getInitials } from '@/utils/helpers'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAuthStore } from '@/store/useAuthStore'
 import type { UserRole } from '@/types'
+import { Logo } from '@/components/brand/Logo'
 
 type NavItem = { href: string; label: string; icon: React.ReactNode }
 
@@ -68,14 +69,9 @@ export function DashboardSidebar() {
       />
 
       {/* Logo */}
-      <div className="relative px-5 py-5 border-b border-zinc-800/70 flex items-center">
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-500 shadow-lg shadow-orange-500/30 group-hover:scale-105 transition-transform">
-            <Shield className="h-3.5 w-3.5 text-white" />
-          </div>
-          <span className="font-bold text-white">
-            Convoy<span className="text-orange-500">Link</span>
-          </span>
+      <div className="relative px-5 py-5 border-b border-zinc-800/70">
+        <Link href="/" className="group inline-flex">
+          <Logo iconSize={28} textSize="text-base" className="group-hover:opacity-90 transition-opacity" />
         </Link>
       </div>
 

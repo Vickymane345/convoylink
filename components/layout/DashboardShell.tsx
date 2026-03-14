@@ -1,9 +1,9 @@
 'use client'
 
-import { Shield } from 'lucide-react'
 import Link from 'next/link'
 import { DashboardSidebar } from './DashboardSidebar'
 import { DashboardBottomTabs } from './DashboardBottomTabs'
+import { Logo } from '@/components/brand/Logo'
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
@@ -30,13 +30,8 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
       {/* ── Mobile top bar ───────────────────────────── */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-30 h-14 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md flex items-center px-4">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-orange-500">
-            <Shield className="h-3 w-3 text-white" />
-          </div>
-          <span className="font-bold text-white text-sm">
-            Convoy<span className="text-orange-500">Link</span>
-          </span>
+        <Link href="/">
+          <Logo iconSize={26} textSize="text-sm" />
         </Link>
       </div>
 
