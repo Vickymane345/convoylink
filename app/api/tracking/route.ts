@@ -31,7 +31,16 @@ export async function POST(request: Request) {
       .single() as { data: { id: string; driver_id: string; status: string } | null }
 
     if (!trip) return NextResponse.json({ error: 'Trip not found' }, { status: 404 })
-    if (trip.driver_id !== user.id) {
+
+    // driver_id on convoy_trips references drivers.id (not auth user id) — look up the driver record
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: driverRecord } = await (admin as any)
+      .from('drivers')
+      .select('id')
+      .eq('user_id', user.id)
+      .maybeSingle() as { data: { id: string } | null }
+
+    if (!driverRecord || trip.driver_id !== driverRecord.id) {
       return NextResponse.json({ error: 'Forbidden — you are not assigned to this trip' }, { status: 403 })
     }
     if (!['en_route', 'in_progress'].includes(trip.status)) {

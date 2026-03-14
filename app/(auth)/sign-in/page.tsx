@@ -32,7 +32,7 @@ function SignInForm() {
   const onSubmit = async (data: FormData) => {
     setAuthError(null)
     const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data: authData, error } = await supabase.auth.signInWithPassword({
       email: data.email,
       password: data.password,
     })
@@ -40,7 +40,27 @@ function SignInForm() {
       setAuthError(error.message)
       return
     }
-    window.location.href = redirectTo
+
+    // If there's a specific redirectTo (e.g. from booking flow), honour it
+    if (redirectTo !== '/dashboard') {
+      window.location.href = redirectTo
+      return
+    }
+
+    // Otherwise redirect based on the user's role
+    const { data: profile } = await supabase
+      .from('user_profiles')
+      .select('role')
+      .eq('id', authData.user.id)
+      .single()
+
+    const roleRedirect: Record<string, string> = {
+      admin:    '/admin/dashboard',
+      provider: '/provider/dashboard',
+      driver:   '/driver/dashboard',
+      customer: '/dashboard',
+    }
+    window.location.href = roleRedirect[(profile as { role: string } | null)?.role ?? 'customer'] ?? '/dashboard'
   }
 
   return (
